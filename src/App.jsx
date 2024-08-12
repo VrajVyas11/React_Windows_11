@@ -1,17 +1,17 @@
-import { useState } from 'react'
-import './App.css'
-import Footer from './components/Footer'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LockScreen from "./Landing/LockScreen.jsx";
+import WindowsHome from "./Landing/WindowsHome.jsx";
+
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-
-    <div className='flex justify-between flex-col w-full'>
-      <div className='h-full w-full '>hello</div>
-    <Footer/>
-    </div>
-
-  )
+    <Router>
+      <Routes>
+        {/* <Route path="/" element={<LockScreen />} /> */}
+        <Route path="/" element={<WindowsHome />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

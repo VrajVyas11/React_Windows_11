@@ -39,7 +39,7 @@ export default function Footer({
                             className="h-8"
                         />
                     </div>
-                    <div class="relative">
+                    <div className="relative">
                         <input
                             className="bg-white  bg-opacity-20 pl-10 px-2 box-border text-white w-full h-8 text-base rounded-full"
                             type="text"
@@ -48,7 +48,7 @@ export default function Footer({
                         <img
                             src="./apps/search.svg"
                             alt="Search Icon"
-                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5"
+                            className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5"
                         />
                     </div>
                     <div
