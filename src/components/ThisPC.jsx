@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
-function Calculator({open}) {
+function ThisPC({open}) {
   const initialX = window.innerWidth / 2.5;
   const initialY = window.innerHeight / 5;
 
@@ -93,52 +93,17 @@ function Calculator({open}) {
         <div className={`w-[500px] h-[600px] flex flex-col overflow-hidden justify-center items-center rounded-md ${theme === "dark" ? "bg-black bg-opacity-70" : "bg-gray-50 bg-opacity-70"} `}>
           <div className="w-full flex justify-between px-5 py-3 absolute top-0 ">
             <div className={`flex flex-row gap-4 font-bold font-mono text-xl tracking-wide  ${theme === "dark" ? "text-white" : ""}`}>
-              <img width={20} height={20} src="/apps/calculator.png" alt="Calculator" />
-              Calculator
+              This PC
             </div>
             <div ><button 
-            onClick={()=>open.set((prev)=>prev.calculator=false)}
+            onClick={()=>open.set((prev)=>prev.thispc=false)}
             className={` material-symbols-outlined ${theme === "dark" ? "text-white" : ""}`}> close</button></div>
           </div>
-          <div className="w-full px-5 flex justify-center items-center mb-44">
-            <input
-              type="text"
-              value={input}
-              className={`p-4 text-3xl w-full font-bold tracking-wide placeholder-white text-right ${theme === "dark" ? "bg-transparent text-white" : "bg-transparent text-black"}`}
-              onInput={(e) => {
-                const allowedCharacters = /[%\/789456\-123+0.]/;
-                e.target.value = e.target.value
-                  .split("")
-                  .filter((char) => allowedCharacters.test(char))
-                  .join("");
-                setInput(e.target.value);
-              }}
-            />
-          </div>
-          <div className="grid grid-cols-4 absolute bottom-0 w-full p-4 gap-2">
-            {["AC", "backspace", "%", "/", "7", "8", "9", "close", "4", "5", "6", "remove", "1", "2", "3", "add", "contrast", "0", ".", "equal"].map((val) => (
-              <button
-                key={val}
-                onClick={() => handleCalculatorButtons(val)}
-                className={`${
-                  val.includes("backspace") ||
-                  val.includes("close") ||
-                  val.includes("remove") ||
-                  val.includes("add") ||
-                  val.includes("equal") ||
-                  val.includes("contrast")
-                    ? ""
-                    : "font-mono text-3xl font-bold"
-                } ${val.includes("equal") ? "bg-orange-500" : "bg-gray-600"} material-symbols-outlined flex justify-center items-center p-3 rounded-md ${theme === "dark" ? "text-white" : "text-black " }`}
-              >
-                {val}
-              </button>
-            ))}
-          </div>
+         
         </div>
       </motion.div>
     </div>
   );
 }
 
-export default Calculator;
+export default ThisPC;

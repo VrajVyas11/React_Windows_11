@@ -1,14 +1,19 @@
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
+import Explorer from "../components/Explorer";
 import Footer from "../components/Footer";
-
-// Define your icons and their initial positions
+import StartMenu from "../components/StartMenu";
+import Browser from "../components/Browser";
+import Calculator from "../components/Calculator";
+import VsCode from "../components/VsCode";
+import RecycleBin from "../components/RecycleBin";
+import ThisPC from "../components/ThisPC";
 const AllDesktopHomeIcons = [
   {
     id: 1,
     name: "This PC",
     icon: "./apps/Computer.ico",
-    action: "explorer",
+    action: "thispc",
     size: "w-18 h-18",
   },
   {
@@ -39,30 +44,52 @@ const AllDesktopHomeIcons = [
     action: "calculator",
     size: "w-11 h-11",
   },
-  {
-    id: 6,
-    name: "VS Code",
-    icon: "https://laaouatni.github.io/w11CSS/images/vs-code.ico",
-    action: "vscode",
-    size: "w-8 h-8",
-  },
-  {
-    id: 7,
-    name: "Spotify",
-    icon: "https://www.freepnglogos.com/uploads/spotify-logo-png/image-gallery-spotify-logo-21.png",
-    action: "app",
-    subAction: "spotify",
-    size: "w-10 h-10",
-  },
+  // {
+  //   id: 6,
+  //   name: "VS Code",
+  //   icon: "https://laaouatni.github.io/w11CSS/images/vs-code.ico",
+  //   action: "vscode",
+  //   size: "w-8 h-8",
+  // },
+  // {
+  //   id: 7,
+  //   name: "Spotify",
+  //   icon: "https://www.freepnglogos.com/uploads/spotify-logo-png/image-gallery-spotify-logo-21.png",
+  //   action: "app",
+  //   subAction: "spotify",
+  //   size: "w-10 h-10",
+  // },
 ];
 
-function Main() {
+function WindowsHome() {
   const constraintsRef = useRef(null);
+  const [windows, setWindows] = useState({
+    menu: false,
+    start: false,
+    thispc:false,
+    explorer: false,
+    browser: false,
+    calculator: false,
+    vscode: false,
+    recycle: false,
+  });
+  const toggleWindow = (window, input = null) => {
+    setWindows((prevWindows) => ({
+      ...prevWindows,
+      [window]: !prevWindows[window],
+    }));
+
+    if (window === "explorer" && input !== null) {
+      setAboutMe(input);
+    } else if (window === "app" && input !== null) {
+      setInput(input);
+    }
+  };
   const [iconPositions, setIconPositions] = useState(
     AllDesktopHomeIcons.map((icon, index) => ({
       ...icon,
       x: 0,
-      y: index * 20 // Adjust the starting positions
+      y: index, // Adjust the starting positions
     }))
   );
 
@@ -75,39 +102,13 @@ function Main() {
       y: (newPositions[index].y || 0) + offset.y,
     };
 
-    // Ensure that the icons align vertically with a 20px gap
-    const adjustVerticalAlignment = (positions) => {
-      return positions.map((icon, idx) => ({
-        ...icon,
-        x: icon.x,
-        y: idx * 20, // Maintain the 20px vertical spacing
-      }));
-    };
-
-    const alignedPositions = adjustVerticalAlignment(newPositions);
-
-    // Check if any other icon is nearby for the folder move prompt
-    for (let i = 0; i < alignedPositions.length; i++) {
-      if (i !== index) {
-        const distX = Math.abs(alignedPositions[index].x - alignedPositions[i].x);
-        const distY = Math.abs(alignedPositions[index].y - alignedPositions[i].y);
-        if (distX < 50 && distY < 50) {
-          if (window.confirm("Move to folder?")) {
-            // Logic to move both icons to the same folder
-            alert("Icons moved to the same folder");
-            // Update positions to move icons to a single folder here
-          }
-        }
-      }
-    }
-
-    setIconPositions(alignedPositions);
+    setIconPositions(newPositions);
   };
 
   return (
     <>
       <div className="relative h-screen" ref={constraintsRef}>
-        <div className="grid h-[80vh] grid-rows-8 gap-2 text-white absolute top-2 left-2">
+        <div className="grid h-[80vh] grid-rows-8 gap-28 py-11 text-white absolute top-2 left-2">
           {iconPositions.map((app, index) => (
             <motion.div
               key={app.id}
@@ -141,6 +142,22 @@ function Main() {
             </motion.div>
           ))}
         </div>
+        <div className="flex justify-center w-full items-start h-[95vh]">
+          <ThisPC
+           open={{value:windows.thispc,set:setWindows}}
+           />
+
+          <RecycleBin
+          open={{value:windows.recycle,set:setWindows}}
+          />
+          <Browser 
+          open={{value:windows.browser,set:setWindows}}
+          />
+          <Calculator 
+          open={{value:windows.calculator,set:setWindows}}
+          />
+          {/* <TikTacToe /> */}
+        </div>
         <Footer
           toggleStart={() => toggleWindow("start")}
           toggleExplorer={(input) => toggleWindow("explorer", input)}
@@ -151,4 +168,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default WindowsHome;
