@@ -8,6 +8,8 @@ import Calculator from "../components/Calculator";
 import VsCode from "../components/VsCode";
 import RecycleBin from "../components/RecycleBin";
 import ThisPC from "../components/ThisPC";
+import DrawBoard from "../components/DrawBoard";
+
 const AllDesktopHomeIcons = [
   {
     id: 1,
@@ -18,73 +20,74 @@ const AllDesktopHomeIcons = [
   },
   {
     id: 2,
+    name: "Folder",
+    icon: "./apps/folder.png",
+    action: "vscode",
+    size: "w-8 h-8",
+  },
+  {
+    id: 3,
     name: "Google Chrome",
     icon: "./apps/chrome.png",
     action: "browser",
     size: "w-10 h-10",
   },
   {
-    id: 3,
+    id: 4,
     name: "RecycleBin",
     icon: "./apps/recyclebin.png",
     action: "recycle",
     size: "w-14 h-14",
   },
   {
-    id: 4,
+    id: 5,
     name: "Microsoft Edge",
     icon: "./apps/edge.png",
     action: "browser",
     size: "w-10 h-10",
   },
   {
-    id: 5,
+    id: 6,
     name: "Calculator",
     icon: "./apps/calculator.png",
     action: "calculator",
     size: "w-11 h-11",
   },
-  // {
-  //   id: 6,
-  //   name: "VS Code",
-  //   icon: "https://laaouatni.github.io/w11CSS/images/vs-code.ico",
-  //   action: "vscode",
-  //   size: "w-8 h-8",
-  // },
-  // {
-  //   id: 7,
-  //   name: "Spotify",
-  //   icon: "https://www.freepnglogos.com/uploads/spotify-logo-png/image-gallery-spotify-logo-21.png",
-  //   action: "app",
-  //   subAction: "spotify",
-  //   size: "w-10 h-10",
-  // },
+  {
+    id: 7,
+    name: "DrawBoard",
+    icon: "./apps/Drawboard.png",
+    action: "drawboard",
+    size: "w-11 h-11",
+  },
+  {
+    id: 8,
+    name: "VS Code",
+    icon: "https://laaouatni.github.io/w11CSS/images/vs-code.ico",
+    action: "vscode",
+    size: "w-8 h-8",
+  },
 ];
 
 function WindowsHome() {
   const constraintsRef = useRef(null);
   const [windows, setWindows] = useState({
-    menu: false,
-    start: false,
-    thispc:false,
+    thispc: false,
     explorer: false,
     browser: false,
     calculator: false,
     vscode: false,
     recycle: false,
+    drawboard: false,
   });
-  const toggleWindow = (window, input = null) => {
+
+  const toggleWindow = (window) => {
     setWindows((prevWindows) => ({
       ...prevWindows,
-      [window]: !prevWindows[window],
+      [window]: !prevWindows[window],  // Toggle the specific window
     }));
-
-    if (window === "explorer" && input !== null) {
-      setAboutMe(input);
-    } else if (window === "app" && input !== null) {
-      setInput(input);
-    }
   };
+
   const [iconPositions, setIconPositions] = useState(
     AllDesktopHomeIcons.map((icon, index) => ({
       ...icon,
@@ -108,7 +111,7 @@ function WindowsHome() {
   return (
     <>
       <div className="relative h-screen" ref={constraintsRef}>
-        <div className="grid h-[80vh] grid-rows-8 gap-28 py-11 text-white absolute top-2 left-2">
+        <div className="grid h-[80vh] grid-rows-8 gap-24 py-11 text-white absolute top-2 left-2">
           {iconPositions.map((app, index) => (
             <motion.div
               key={app.id}
@@ -123,7 +126,7 @@ function WindowsHome() {
             >
               <div
                 className="w-[5em] h-[5em] flex flex-col justify-center items-center rounded-md hover:bg-white hover:bg-opacity-20 px-2 py-3"
-                onDoubleClick={() => toggleWindow(app.action, app.subAction)}
+                onDoubleClick={() => toggleWindow(app.action)}
               >
                 <img
                   src={app.icon}
@@ -132,9 +135,8 @@ function WindowsHome() {
                   onDragStart={(e) => e.preventDefault()}
                 />
                 <div
-                  className={`text-balance text-center text-sm select-none ${
-                    app.name === "Recycle Bin" ? "pt-0" : "pt-2"
-                  }`}
+                  className={`text-balance text-center text-sm select-none ${app.name === "Recycle Bin" ? "pt-0" : "pt-2"
+                    }`}
                 >
                   {app.name}
                 </div>
@@ -143,20 +145,12 @@ function WindowsHome() {
           ))}
         </div>
         <div className="flex justify-center w-full items-start h-[95vh]">
-          <ThisPC
-           open={{value:windows.thispc,set:setWindows}}
-           />
-
-          <RecycleBin
-          open={{value:windows.recycle,set:setWindows}}
-          />
-          <Browser 
-          open={{value:windows.browser,set:setWindows}}
-          />
-          <Calculator 
-          open={{value:windows.calculator,set:setWindows}}
-          />
-          {/* <TikTacToe /> */}
+          <ThisPC open={{ value: windows.thispc, set: setWindows }} />
+          <DrawBoard open={{ value: windows.drawboard, set: setWindows }} />
+          <VsCode open={{ value: windows.vscode, set: setWindows }} />
+          <RecycleBin open={{ value: windows.recycle, set: setWindows }} />
+          <Browser open={{ value: windows.browser, set: setWindows }} />
+          <Calculator open={{ value: windows.calculator, set: setWindows }} />
         </div>
         <Footer
           toggleStart={() => toggleWindow("start")}

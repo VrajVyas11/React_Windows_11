@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
-function Calculator({open}) {
+function Calculator({ open }) {
   const initialX = window.innerWidth / 2.5;
   const initialY = window.innerHeight / 5;
 
@@ -36,7 +36,7 @@ function Calculator({open}) {
   const handleCalculatorButtons = (value) => {
     if (value === "equal") {
       setInput((prev) => new Function(`return ${prev}`)());
-    } 
+    }
     else if (value === "backspace") {
       setInput((prev) => prev.slice(0, -1));
     }
@@ -53,12 +53,12 @@ function Calculator({open}) {
           value === "add"
             ? "+"
             : value === "remove"
-            ? "-"
-            : value === "close"
-            ? "*"
-            : value === "divide"
-            ? "/"
-            : value;
+              ? "-"
+              : value === "close"
+                ? "*"
+                : value === "divide"
+                  ? "/"
+                  : value;
 
         if (["+", "-", "*", "/"].includes(lastChar)) {
           if (["+", "-", "*", "/"].includes(newValue)) {
@@ -72,7 +72,7 @@ function Calculator({open}) {
 
   return (
     <div
-      className={`absolute ${open.value?"":"hidden"} overflow-hidden w-[100vw] h-[95vh] `}
+      className={`absolute ${open.value ? "" : "hidden"} overflow-hidden w-[100vw] h-[95vh] `}
       ref={constraintsRef}
     >
       <motion.div
@@ -90,16 +90,16 @@ function Calculator({open}) {
           });
         }}
       >
-        <div className={`w-[500px] h-[600px] flex flex-col overflow-hidden justify-center items-center rounded-md ${theme === "dark" ? "bg-black bg-opacity-70" : "bg-gray-50 bg-opacity-70"} `}>
-          <div className="w-full flex justify-between px-5 py-3 absolute top-0 ">
-            <div className={`flex flex-row gap-4 font-bold font-mono text-xl tracking-wide  ${theme === "dark" ? "text-white" : ""}`}>
-              <img width={20} height={20} src="/apps/calculator.png" alt="Calculator" />
+        <div className={`w-[500px] h-[600px] flex flex-col overflow-hidden justify-center items-center rounded-md ${theme === "dark" ? "bg-[#212121] " : "bg-gray-50 "} `}>
+          <div className="w-full flex justify-between  absolute top-0 ">
+            <div className={`flex flex-row text-lg gap-4 justify-center items-center font-mono m-1 ml-4 tracking-wider  ${theme === "dark" ? "text-white" : ""}`}>
+              <img className="h-8" width={30} src="/apps/calculator.png" alt="Calculator" />
               Calculator
             </div>
-            <div ><button 
-            onClick={()=>open.set((prev)=>prev.calculator=false)}
-            className={` material-symbols-outlined ${theme === "dark" ? "text-white" : ""}`}> close</button></div>
-          </div>
+            <button
+              onClick={() => open.set((prev) => prev.calculator = false)}
+              className={` material-symbols-outlined py-3 px-5 rounded-tr-md hover:bg-red-500 ${theme === "dark" ? "text-white" : ""}`}> close</button></div>
+
           <div className="w-full px-5 flex justify-center items-center mb-44">
             <input
               type="text"
@@ -120,16 +120,15 @@ function Calculator({open}) {
               <button
                 key={val}
                 onClick={() => handleCalculatorButtons(val)}
-                className={`${
-                  val.includes("backspace") ||
-                  val.includes("close") ||
-                  val.includes("remove") ||
-                  val.includes("add") ||
-                  val.includes("equal") ||
-                  val.includes("contrast")
+                className={`${val.includes("backspace") ||
+                    val.includes("close") ||
+                    val.includes("remove") ||
+                    val.includes("add") ||
+                    val.includes("equal") ||
+                    val.includes("contrast")
                     ? ""
                     : "font-mono text-3xl font-bold"
-                } ${val.includes("equal") ? "bg-orange-500" : "bg-gray-600"} material-symbols-outlined flex justify-center items-center p-3 rounded-md ${theme === "dark" ? "text-white" : "text-black " }`}
+                  } ${val.includes("equal") ? "bg-orange-500" : "bg-gray-600"} material-symbols-outlined flex justify-center items-center p-3 rounded-md ${theme === "dark" ? "text-white" : "text-black "}`}
               >
                 {val}
               </button>
