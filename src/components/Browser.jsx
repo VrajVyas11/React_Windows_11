@@ -63,7 +63,7 @@ function Browser({ open }) {
   };
 
   return (
-    <div className={`${open.value ? "" : "hidden"} z-30 w-full h-screen pointer-events-none absolute`}>
+    <div className={`${open.value ? "" : "hidden"} z-30 w-full h-screen text-white pointer-events-none absolute`}>
       <div className="absolute overflow-hidden w-[100vw] h-[95vh]" ref={explorerRef}>
         <motion.div
           drag
@@ -101,11 +101,11 @@ function Browser({ open }) {
 
      
           <div className="absolute bg-neutral-800 top-[6.5px] h-[2.3em] left-[6px] rounded-t-lg flex">
-            <div className="flex justify-center items-center w-full">
+            <div className="flex justify-center items-center w-full overflow-hidden">
               {tabs.map((tab) => (
                 <div
                   key={tab.id}
-                  className={`pl-2 text-sm w-60 justify-between flex items-center ${tab.active ? "bg-neutral-900 text-white" : "text-gray-400"}`}
+                  className={`pl-2 text-sm h-9 w-60 mb-2 rounded-r-lg justify-between flex items-center ${tab.active ? "bg-neutral-800 text-white" : "text-gray-400 bg-neutral-900"}`}
                   onClick={() => switchTab(tab.id)}
                 >
                   <div>{tab.title}</div>

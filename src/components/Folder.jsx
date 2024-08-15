@@ -318,7 +318,7 @@ const Folder = ({ open }) => {
                       className="w-4 h-4 mr-1"
                     />
                     This PC
-                    <div class="material-symbols-outlined absolute left-2 text-lg opacity-30">
+                    <div className="material-symbols-outlined absolute left-2 text-lg opacity-30">
                       chevron_right
                     </div>
                   </div>
@@ -329,7 +329,7 @@ const Folder = ({ open }) => {
                       className="w-4 h-4 mr-1"
                     />
                     Network
-                    <div class="material-symbols-outlined absolute left-2 text-lg opacity-30">
+                    <div className="material-symbols-outlined absolute left-2 text-lg opacity-30">
                       chevron_right
                     </div>
                   </div>

@@ -10,7 +10,6 @@ import RecycleBin from "../components/RecycleBin";
 import ThisPC from "../components/ThisPC";
 import DrawBoard from "../components/DrawBoard";
 import Folder from "../components/Folder";
-import RightClick from "../components/RightClick";
 
 const AllDesktopHomeIcons = [
   {
