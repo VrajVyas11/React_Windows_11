@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
-const RecycleBin = ({ open }) => {
+const Folder = ({ open }) => {
   const initialX = window.innerWidth / 2.5;
   const initialY = window.innerHeight / 5;
 
@@ -59,7 +59,7 @@ const RecycleBin = ({ open }) => {
             <div className="text-white h-9 w-full flex justify-end select-none">
               <div
                 className="material-symbols-outlined hover:bg-neutral-800 h-12  w-11 flex justify-center items-start text-xl"
-                onClick={()=>open.set((prev)=>prev.recycle=false)}
+                onClick={()=>open.set((prev)=>prev.folder=false)}
               >
                 minimize
               </div>
@@ -68,7 +68,7 @@ const RecycleBin = ({ open }) => {
               </div>
               <div
                 className="material-symbols-outlined hover:bg-red-700 w-12 h-10 flex rounded-tr-md justify-center items-center text-xl"
-                onClick={()=>open.set((prev)=>prev.recycle=false)}
+                onClick={()=>open.set((prev)=>prev.folder=false)}
               >
                 close
               </div>
@@ -79,11 +79,11 @@ const RecycleBin = ({ open }) => {
               <div className="flex justify-between items-center w-full">
                 <div className="pl-2 text-xs flex">
                   <img
-                    src={`/apps/recyclebin.png`}
+                    src={`./apps/folder.png`}
                     alt="main icons"
                     className="w-5 h-5 mr-2"
                   />
-                  Recycle Bin
+                  New Folder
                 </div>
                 <div className="material-symbols-outlined hover:bg-neutral-800 m-0.5 w-6 rounded-md flex justify-center items-center text-lg">
                   close
@@ -115,13 +115,13 @@ const RecycleBin = ({ open }) => {
                 <div className="material-symbols-outlined font-extralight">
                   navigate_next
                 </div>
-                <div>Recycle Bin</div>
+                <div>New Folder</div>
                 <div className="material-symbols-outlined font-extralight">
                   navigate_next
                 </div>
               </div>
               <div className="flex justify-between bg-neutral-700 bg-opacity-50 my-1.5 rounded-md items-center text-sm px-4 mr-3 w-[19.3em]">
-                <div className="opacity-80">Search Recycle Bin</div>
+                <div className="opacity-80">Search New Folder</div>
                 <div className="material-symbols-outlined font-extralight text-sm">
                   search
                 </div>
@@ -351,4 +351,4 @@ const RecycleBin = ({ open }) => {
   );
 };
 
-export default RecycleBin;
+export default Folder;

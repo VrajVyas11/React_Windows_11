@@ -91,14 +91,34 @@ function Calculator({ open }) {
         }}
       >
         <div className={`w-[500px] h-[600px] flex flex-col overflow-hidden justify-center items-center rounded-md ${theme === "dark" ? "bg-[#212121] " : "bg-gray-50 "} `}>
-          <div className="w-full flex justify-between  absolute top-0 ">
-            <div className={`flex flex-row text-lg gap-4 justify-center items-center font-mono m-1 ml-4 tracking-wider  ${theme === "dark" ? "text-white" : ""}`}>
-              <img className="h-8" width={30} src="/apps/calculator.png" alt="Calculator" />
+        <div className="absolute top-0 w-full flex justify-between  items-center flex-row">
+            <div className="flex flex-row text-lg gap-4 justify-center items-center font-mono ml-4 tracking-wide text-white">
+              <img
+                width={20}
+                height={10}
+                src="apps/calculator.png"
+                alt="calculator"
+              />
               Calculator
             </div>
-            <button
-              onClick={() => open.set((prev) => prev.calculator = false)}
-              className={` material-symbols-outlined py-3 px-5 rounded-tr-md hover:bg-red-500 ${theme === "dark" ? "text-white" : ""}`}> close</button></div>
+            <div className="text-white h-9 w-fit flex justify-end select-none">
+              <div
+                className="material-symbols-outlined hover:bg-neutral-700 h-10  w-11 flex justify-center items-start text-xl"
+                onClick={() => open.set((prev) => ({ ...prev, calculator: false }))}
+              >
+                minimize
+              </div>
+              <div className="material-symbols-outlined hover:bg-neutral-700 h-10 w-11 flex justify-center items-center text-sm">
+                check_box_outline_blank
+              </div>
+              <div
+                className="material-symbols-outlined rounded-tr-md hover:bg-red-700 w-12 h-10 flex justify-center items-center text-xl"
+                onClick={() => open.set((prev) => ({ ...prev, calculator: false }))}
+              >
+                close
+              </div>
+            </div>
+          </div>
 
           <div className="w-full px-5 flex justify-center items-center mb-44">
             <input

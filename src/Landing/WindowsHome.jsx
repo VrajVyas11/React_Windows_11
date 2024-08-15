@@ -9,6 +9,8 @@ import VsCode from "../components/VsCode";
 import RecycleBin from "../components/RecycleBin";
 import ThisPC from "../components/ThisPC";
 import DrawBoard from "../components/DrawBoard";
+import Folder from "../components/Folder";
+import RightClick from "../components/RightClick";
 
 const AllDesktopHomeIcons = [
   {
@@ -22,7 +24,7 @@ const AllDesktopHomeIcons = [
     id: 2,
     name: "Folder",
     icon: "./apps/folder.png",
-    action: "vscode",
+    action: "folder",
     size: "w-8 h-8",
   },
   {
@@ -69,6 +71,7 @@ const AllDesktopHomeIcons = [
   },
 ];
 
+
 function WindowsHome() {
   const constraintsRef = useRef(null);
   const [windows, setWindows] = useState({
@@ -81,11 +84,17 @@ function WindowsHome() {
     drawboard: false,
   });
 
-  const toggleWindow = (window) => {
+  const [browserUrl, setBrowserUrl] = useState("https://www.google.com/webhp?igu=1");
+
+  const toggleWindow = (window, url = null) => {
     setWindows((prevWindows) => ({
       ...prevWindows,
-      [window]: !prevWindows[window],  // Toggle the specific window
+      [window]: !prevWindows[window],
     }));
+
+    if (url) {
+      setBrowserUrl(url);
+    }
   };
 
   const [iconPositions, setIconPositions] = useState(
@@ -112,6 +121,7 @@ function WindowsHome() {
     <>
       <div className="relative h-screen" ref={constraintsRef}>
         <div className="grid h-[80vh] grid-rows-8 gap-24 py-11 text-white absolute top-2 left-2">
+
           {iconPositions.map((app, index) => (
             <motion.div
               key={app.id}
@@ -126,7 +136,7 @@ function WindowsHome() {
             >
               <div
                 className="w-[5em] h-[5em] flex flex-col justify-center items-center rounded-md hover:bg-white hover:bg-opacity-20 px-2 py-3"
-                onDoubleClick={() => toggleWindow(app.action)}
+                onDoubleClick={() => toggleWindow(app.action, app.url)}
               >
                 <img
                   src={app.icon}
@@ -143,14 +153,16 @@ function WindowsHome() {
               </div>
             </motion.div>
           ))}
+         
         </div>
         <div className="flex justify-center w-full items-start h-[95vh]">
           <ThisPC open={{ value: windows.thispc, set: setWindows }} />
           <DrawBoard open={{ value: windows.drawboard, set: setWindows }} />
           <VsCode open={{ value: windows.vscode, set: setWindows }} />
           <RecycleBin open={{ value: windows.recycle, set: setWindows }} />
-          <Browser open={{ value: windows.browser, set: setWindows }} />
+          <Browser open={{ value: windows.browser, set: setWindows }} initialUrl={browserUrl} />
           <Calculator open={{ value: windows.calculator, set: setWindows }} />
+          <Folder open={{ value: windows.folder, set: setWindows }}  />
         </div>
         <Footer
           toggleStart={() => toggleWindow("start")}

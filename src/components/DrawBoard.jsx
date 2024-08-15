@@ -64,20 +64,38 @@ function DrawBoard({ open }) {
                 <div className="w-[1000px] h-[700px] absolute  flex flex-col justify-between rounded-md bg-[#212121] select-none">
                     {/* select-none disables text selection */}
                     <div
-                        className="w-full flex justify-between z-50"
+                        className="w-full flex justify-between z-50 h-10"
                         onPointerDown={startDrag} // Trigger drag on pointer down
                         onDoubleClick={(e) => e.preventDefault()} // Prevent default double-click behavior
                     >
-                        <div className={`flex flex-row text-lg gap-4 justify-center items-center  font-mono m-1 ml-4 tracking-wider text-white select-none`}>
-                            <img width={25} height={10} src="/apps/Drawboard.png" alt="Drawboard" />
-                            Drawboard
-                        </div>
-                        <button
-                            onClick={() => open.set((prev) => (prev.drawboard = false))}
-                            className={`material-symbols-outlined py-1.5 px-5 rounded-tr-md hover:bg-red-500 text-white select-none`}
-                        >
-                            close
-                        </button>
+                        
+            <div className="flex flex-row text-lg gap-4 justify-center items-center font-mono ml-4 tracking-wide text-white">
+              <img
+                width={20}
+                height={10}
+                src="apps/Drawboard.png"
+                alt="calculator"
+              />
+              DrawBoard
+            </div>
+            <div className="text-white h-9 w-fit flex justify-end select-none">
+              <div
+                className="material-symbols-outlined hover:bg-neutral-700 h-10  w-11 flex justify-center items-start text-xl"
+                onClick={() => open.set((prev) => ({ ...prev, drawboard: false }))}
+              >
+                minimize
+              </div>
+              <div className="material-symbols-outlined hover:bg-neutral-700 h-10 w-11 flex justify-center items-center text-sm">
+                check_box_outline_blank
+              </div>
+              <div
+                className="material-symbols-outlined rounded-tr-md hover:bg-red-700 w-12 h-10 flex justify-center items-center text-xl"
+                onClick={() => open.set((prev) => ({ ...prev, drawboard: false }))}
+              >
+                close
+              </div>
+        
+          </div>
                     </div>
                     <div className="flex-grow rounded-sm relative overflow-hidden w-full">
                         <Tldraw />

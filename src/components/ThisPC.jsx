@@ -33,42 +33,6 @@ function ThisPC({open}) {
     return () => window.removeEventListener("resize", calculateConstraints);
   }, []);
 
-  const handleCalculatorButtons = (value) => {
-    if (value === "equal") {
-      setInput((prev) => new Function(`return ${prev}`)());
-    } 
-    else if (value === "backspace") {
-      setInput((prev) => prev.slice(0, -1));
-    }
-    else if (value === "AC") {
-      setInput("");
-    }
-    else if (value === "contrast") {
-      setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-    }
-    else {
-      setInput((prev) => {
-        const lastChar = prev.slice(-1);
-        const newValue =
-          value === "add"
-            ? "+"
-            : value === "remove"
-            ? "-"
-            : value === "close"
-            ? "*"
-            : value === "divide"
-            ? "/"
-            : value;
-
-        if (["+", "-", "*", "/"].includes(lastChar)) {
-          if (["+", "-", "*", "/"].includes(newValue)) {
-            return prev.slice(0, -1) + newValue;
-          }
-        }
-        return prev + newValue;
-      });
-    }
-  };
 
   return (
     <div

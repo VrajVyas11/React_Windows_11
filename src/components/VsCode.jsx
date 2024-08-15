@@ -52,30 +52,39 @@ function VsCode({ open }) {
         }}
       >
         <div className="w-[1000px] h-[700px] flex flex-col rounded-md overflow-hidden justify-between bg-[#212121]">
-          <div className="title-bar flex justify-between items-center bg-neutral-800 text-white h-9 select-none">
-            <div className="flex flex-row text-lg gap-4 justify-center items-center font-mono m-1 ml-4 tracking-wide text-white">
+        <div className="absolute top-0 w-full flex justify-between  items-center flex-row ">
+            <div className="flex flex-row text-lg gap-4 justify-center items-center font-mono ml-4 tracking-wide text-white">
               <img
                 width={20}
                 height={10}
                 src="https://laaouatni.github.io/w11CSS/images/vs-code.ico"
-                alt="VSCode"
+                alt="VsCode"
               />
               Visual Studio Code
             </div>
-            <button
-              onClick={() => open.set((prev) => ({ ...prev, vscode: false }))}
-              className="material-symbols-outlined py-1.5 px-5 rounded-tr-md hover:bg-red-500 text-white"
-            >
-              close
-            </button>
+            <div className="text-white h-9 w-fit flex justify-end select-none">
+              <div
+                className="material-symbols-outlined hover:bg-neutral-700 h-10  w-11 flex justify-center items-start text-xl"
+                onClick={() => open.set((prev) => ({ ...prev, vscode: false }))}
+              >
+                minimize
+              </div>
+              <div className="material-symbols-outlined hover:bg-neutral-700 h-10 w-11 flex justify-center items-center text-sm">
+                check_box_outline_blank
+              </div>
+              <div
+                className="material-symbols-outlined rounded-tr-md hover:bg-red-700 w-12 h-10 flex justify-center items-center text-xl"
+                onClick={() => open.set((prev) => ({ ...prev, vscode: false }))}
+              >
+                close
+              </div>
+            </div>
           </div>
-          <div className="flex-grow">
-            <iframe
+          <div className="flex-grow mt-10">
+          <iframe
               src="https://github1s.com/VrajVyas11/React_Windows_11/blob/main/src/Landing/WindowsHome.jsx"
-              title="GitHub1s"
-              className="h-full w-full"
-              allow="geolocation; microphone; camera; midi; encrypted-media;"
-              sandbox="allow-scripts allow-popups allow-same-origin"
+              title="VsCode"
+              className="h-full w-full "
             ></iframe>
           </div>
         </div>
