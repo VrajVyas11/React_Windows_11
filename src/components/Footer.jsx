@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 export default function Footer({
     toggleStart,
     toggleExplorer,
-    toggleBrowser,
+    toggleEdge,
 }) {
     const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -65,7 +65,7 @@ export default function Footer({
                     </div>
                     <div
                         className="flex justify-center items-center font-semibold text-sm hover:bg-neutral-700 my-1 h-full rounded-md px-1 w-11"
-                        onClick={toggleBrowser}
+                        onClick={toggleEdge}
                     >
                         <img
                             src="./apps/edge.png"

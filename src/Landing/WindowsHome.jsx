@@ -10,6 +10,9 @@ import RecycleBin from "../components/RecycleBin";
 import ThisPC from "../components/ThisPC";
 import DrawBoard from "../components/DrawBoard";
 import Folder from "../components/Folder";
+import RightClick from "../components/RightClick"; // Import the new component
+import Terminal from "../components/Terminal";
+import MSEdge from "../components/MSEdge";
 
 const AllDesktopHomeIcons = [
   {
@@ -44,7 +47,7 @@ const AllDesktopHomeIcons = [
     id: 5,
     name: "Microsoft Edge",
     icon: "./apps/edge.png",
-    action: "browser",
+    action: "msedge",
     size: "w-10 h-10",
   },
   {
@@ -70,10 +73,10 @@ const AllDesktopHomeIcons = [
   },
 ];
 
-
 function WindowsHome() {
   const constraintsRef = useRef(null);
   const [windows, setWindows] = useState({
+    start:false,
     thispc: false,
     explorer: false,
     browser: false,
@@ -81,6 +84,8 @@ function WindowsHome() {
     vscode: false,
     recycle: false,
     drawboard: false,
+    terminal:false,
+    msedge:false,
   });
 
   const [browserUrl, setBrowserUrl] = useState("https://www.google.com/webhp?igu=1");
@@ -116,60 +121,91 @@ function WindowsHome() {
     setIconPositions(newPositions);
   };
 
-  return (
-    <>
-      <div className="relative h-screen" ref={constraintsRef}>
-        <div className="grid h-[80vh] grid-rows-8 gap-24 py-11 text-white absolute top-2 left-2">
+  const [rightClickPosition, setRightClickPosition] = useState({ x: 0, y: 0 });
+  const [isRightClickVisible, setRightClickVisible] = useState(false);
 
-          {iconPositions.map((app, index) => (
-            <motion.div
-              key={app.id}
-              drag
-              dragConstraints={constraintsRef}
-              dragMomentum={false}
-              onDragEnd={(event, info) => handleDragEnd(event, info, index)}
-              className="flex items-center justify-center"
-              style={{
-                transform: `translate(${app.x || 0}px, ${app.y || 0}px)`,
-              }}
+  const handleRightClick = (event) => {
+    event.preventDefault(); // Prevent the default context menu from appearing
+    setRightClickPosition({ x: event.clientX, y: event.clientY });
+    setRightClickVisible(true);
+  };
+
+  const handleClick = () => {
+    if (isRightClickVisible) {
+      setRightClickVisible(false); // Close the right-click menu on any left click
+    }
+  };
+
+  return (
+    <div
+      className="relative h-screen"
+      ref={constraintsRef}
+      onContextMenu={handleRightClick} // Capture right-clicks on the entire screen
+      onClick={handleClick} // Capture left-clicks to close the menu
+    >
+      <div className="grid h-[80vh] grid-rows-8 gap-24 py-11 text-white absolute top-2 left-2">
+        {iconPositions.map((app, index) => (
+          <motion.div
+            key={app.id}
+            drag
+            dragConstraints={constraintsRef}
+            dragMomentum={false}
+            onDragEnd={(event, info) => handleDragEnd(event, info, index)}
+            className="flex items-center justify-center"
+            style={{
+              transform: `translate(${app.x || 0}px, ${app.y || 0}px)`,
+            }}
+          >
+            <div
+              className="w-[5em] h-[5em] flex flex-col justify-center items-center rounded-md hover:bg-white hover:bg-opacity-20 px-2 py-3"
+              onDoubleClick={() => toggleWindow(app.action, app.url)}
             >
+              <img
+                src={app.icon}
+                alt={app.name}
+                className={app.size}
+                onDragStart={(e) => e.preventDefault()}
+              />
               <div
-                className="w-[5em] h-[5em] flex flex-col justify-center items-center rounded-md hover:bg-white hover:bg-opacity-20 px-2 py-3"
-                onDoubleClick={() => toggleWindow(app.action, app.url)}
+                className={`text-balance text-center text-sm select-none ${
+                  app.name === "Recycle Bin" ? "pt-0" : "pt-2"
+                }`}
               >
-                <img
-                  src={app.icon}
-                  alt={app.name}
-                  className={app.size}
-                  onDragStart={(e) => e.preventDefault()}
-                />
-                <div
-                  className={`text-balance text-center text-sm select-none ${app.name === "Recycle Bin" ? "pt-0" : "pt-2"
-                    }`}
-                >
-                  {app.name}
-                </div>
+                {app.name}
               </div>
-            </motion.div>
-          ))}
-         
-        </div>
-        <div className="flex justify-center w-full items-start h-[95vh]">
-          <ThisPC open={{ value: windows.thispc, set: setWindows }} />
-          <DrawBoard open={{ value: windows.drawboard, set: setWindows }} />
-          <VsCode open={{ value: windows.vscode, set: setWindows }} />
-          <RecycleBin open={{ value: windows.recycle, set: setWindows }} />
-          <Browser open={{ value: windows.browser, set: setWindows }} initialUrl={browserUrl} />
-          <Calculator open={{ value: windows.calculator, set: setWindows }} />
-          <Folder open={{ value: windows.folder, set: setWindows }}  />
-        </div>
-        <Footer
-          toggleStart={() => toggleWindow("start")}
-          toggleExplorer={(input) => toggleWindow("explorer", input)}
-          toggleBrowser={() => toggleWindow("browser")}
-        />
+            </div>
+          </motion.div>
+        ))}
       </div>
-    </>
+      <div className="flex justify-center w-full items-start h-[95vh]">
+        <ThisPC open={{ value: windows.thispc, set: setWindows }} />
+        <DrawBoard open={{ value: windows.drawboard, set: setWindows }} />
+        <VsCode open={{ value: windows.vscode, set: setWindows }} />
+        <MSEdge open={{ value: windows.msedge, set: setWindows }} />
+        <RecycleBin open={{ value: windows.recycle, set: setWindows }} />
+        <Browser open={{ value: windows.browser, set: setWindows }} initialUrl={browserUrl} />
+        <Calculator open={{ value: windows.calculator, set: setWindows }} />
+        <Folder open={{ value: windows.folder, set: setWindows }} />
+        <RightClick 
+        position={rightClickPosition} 
+        isVisible={isRightClickVisible} 
+        open={{ value: windows, set: setWindows }} 
+      />
+      <Terminal open={{ value: windows, set: setWindows }} />
+      </div>
+      <Footer
+        toggleStart={() => toggleWindow("start")}
+        toggleExplorer={(input) => toggleWindow("explorer", input)}
+        toggleEdge={() => toggleWindow("msedge")}
+      />
+      <div></div>
+<StartMenu
+  toggleStart={() => toggleWindow("start")}
+  isStartOpen={windows.start}
+  setInput={(input) => setBrowserUrl(input)}
+/>
+
+    </div>
   );
 }
 
