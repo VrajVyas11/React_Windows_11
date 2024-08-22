@@ -7,8 +7,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* <Route path="/" element={<LockScreen />} /> */}
-        <Route path="/" element={<WindowsHome />} />
+        <Route path="/" element={<LockScreen />} />
+        <Route path="/:name" element={<WindowsHome />} />
       </Routes>
     </Router>
   );

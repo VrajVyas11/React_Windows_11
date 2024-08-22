@@ -13,6 +13,7 @@ import Folder from "../components/Folder";
 import RightClick from "../components/RightClick"; // Import the new component
 import Terminal from "../components/Terminal";
 import MSEdge from "../components/MSEdge";
+import ExitScreens from "../components/ExitScreens";
 
 const AllDesktopHomeIcons = [
   {
@@ -75,8 +76,10 @@ const AllDesktopHomeIcons = [
 
 function WindowsHome() {
   const constraintsRef = useRef(null);
+  const [isSleeping, setIsSleeping] = useState(false)
+  const [actionType, setActionType] = useState("")
   const [windows, setWindows] = useState({
-    start:false,
+    start: false,
     thispc: false,
     explorer: false,
     browser: false,
@@ -84,8 +87,8 @@ function WindowsHome() {
     vscode: false,
     recycle: false,
     drawboard: false,
-    terminal:false,
-    msedge:false,
+    terminal: false,
+    msedge: false,
   });
 
   const [browserUrl, setBrowserUrl] = useState("https://www.google.com/webhp?igu=1");
@@ -167,9 +170,8 @@ function WindowsHome() {
                 onDragStart={(e) => e.preventDefault()}
               />
               <div
-                className={`text-balance text-center text-sm select-none ${
-                  app.name === "Recycle Bin" ? "pt-0" : "pt-2"
-                }`}
+                className={`text-balance text-center text-sm select-none ${app.name === "Recycle Bin" ? "pt-0" : "pt-2"
+                  }`}
               >
                 {app.name}
               </div>
@@ -186,12 +188,13 @@ function WindowsHome() {
         <Browser open={{ value: windows.browser, set: setWindows }} initialUrl={browserUrl} />
         <Calculator open={{ value: windows.calculator, set: setWindows }} />
         <Folder open={{ value: windows.folder, set: setWindows }} />
-        <RightClick 
-        position={rightClickPosition} 
-        isVisible={isRightClickVisible} 
-        open={{ value: windows, set: setWindows }} 
-      />
-      <Terminal open={{ value: windows, set: setWindows }} />
+        <RightClick
+          position={rightClickPosition}
+          isVisible={isRightClickVisible}
+          open={{ value: windows, set: setWindows }}
+        />
+        <Terminal open={{ value: windows, set: setWindows }} />
+        <ExitScreens isSleeping={isSleeping} actionType={actionType}/>
       </div>
       <Footer
         toggleStart={() => toggleWindow("start")}
@@ -199,11 +202,13 @@ function WindowsHome() {
         toggleEdge={() => toggleWindow("msedge")}
       />
       <div></div>
-<StartMenu
-  toggleStart={() => toggleWindow("start")}
-  isStartOpen={windows.start}
-  setInput={(input) => setBrowserUrl(input)}
-/>
+      <StartMenu
+        toggleStart={() => toggleWindow("start")}
+        isStartOpen={windows.start}
+        setInput={(input) => setBrowserUrl(input)}
+        setIsSleeping={(val)=>setIsSleeping(val)}
+        setActionType={(val)=>setActionType(val)}
+      />
 
     </div>
   );

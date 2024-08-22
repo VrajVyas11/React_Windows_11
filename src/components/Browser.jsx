@@ -148,7 +148,7 @@ function Browser({ open }) {
               <div className="absolute right-2 top-0 text-lg opacity-80 material-symbols-outlined">star</div>
             </div>
             <div className="avatar placeholder flex justify-center items-center ml-6">
-              <div className="bg-black text-white rounded-full w-6 h-6">
+            <div className="bg-neutral-900 flex justify-center items-center text-white rounded-full w-6 h-6">
                 {name && <div className="text-white text-md font-normal">{name.charAt(0).toUpperCase()}</div>}
               </div>
             </div>

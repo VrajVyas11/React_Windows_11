@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 
 const MenuItem = ({ icon, text, showArrow = false, onClick }) => (
   <div
@@ -23,7 +24,7 @@ const MenuItem = ({ icon, text, showArrow = false, onClick }) => (
 );
 
 function RightClick({ position, isVisible,open }) {
-
+  const { name } = useParams();
 
   if (!isVisible) return null;
 
@@ -38,7 +39,7 @@ function RightClick({ position, isVisible,open }) {
         <div className="w-[18rem] text-white">
           <MenuItem icon="/options/view.png" text="View" showArrow />
           <MenuItem icon="/options/sort.png" text="Sort by" showArrow />
-          <a href="/"><MenuItem text="Refresh" /></a>
+          <a href={`/${name}`}><MenuItem text="Refresh" /></a>
           <MenuItem icon="/options/undo.png" text="Undo" />
           <div className="border-t border-gray-500 my-1"></div>
           <MenuItem icon="/options/new.png" text="New" showArrow />
