@@ -68,7 +68,7 @@ const Lockscreen = () => {
     }, [name]);
 
     return (
-      <div className="flex items-center justify-center w-36 h-full bg-gray-200 rounded-full text-white text-2xl font-bold select-none">
+      <div className={`flex items-center justify-center w-36 h-full ${name?"bg-red-300":"bg-gray-200"}  rounded-full text-white text-2xl font-bold select-none`}>
         {name ? (
           <div className="text-black  font-normal text-6xl ">{userInitials}</div>
         ) : (
@@ -88,12 +88,22 @@ const Lockscreen = () => {
 
   if (isMobile) {
     return (
-      <div className="bg-black w-full h-screen text-center text-3xl px-7 overflow-hidden flex flex-col justify-center items-center">
-        😔
-        <br />
-        Sorry, this app is not supported on mobile devices{" "}
-        <div className="font-bold">YET.</div> 🙏
-      </div>
+      <div className="bg-gradient-to-b from-gray-900 to-gray-700 w-full h-screen text-center text-white px-7 overflow-hidden flex flex-col justify-center items-center">
+  <div
+  className="text-3xl font-extrabold text-red-500 mb-4 tracking-wider"
+  style={{ filter: "drop-shadow(10px 10px 10px black)" }}
+>
+    Mobile devices are not Supported
+  </div>
+  <p className="text-xl max-w-xl leading-relaxed">
+    We're crafting an experience that shines on larger screens. Please visit us from a desktop or tablet to explore the full potential of this application.
+  </p>
+  <div className="mt-6 text-lg font-medium opacity-75">
+    Mobile support is on the way — stay tuned!
+  </div>
+</div>
+
+    
     );
   }
 
@@ -170,7 +180,7 @@ const Lockscreen = () => {
                   onClick={toggleMenu}
                   data-tip="You can log in by typing anything into the input fields and pressing enter—no credentials needed!"
                 >
-                  I forgot my PIN
+                  forgot password
                 </div> */}
               </>
             )}
