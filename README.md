@@ -51,7 +51,7 @@ This React project mimics the Windows 11 desktop experience with fully functiona
 ![laptop](livedemoimages/laptop18.png)
 
 ### Not Mobile supported yet* 
-![mobile](livedemoimages/mobile1.png)
+![mobile](livedemoimages/mobile.png)
 
 
 ## Contributing
