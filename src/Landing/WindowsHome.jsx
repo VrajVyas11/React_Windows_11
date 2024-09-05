@@ -143,7 +143,6 @@ function WindowsHome() {
     <div
       className="relative h-screen"
       ref={constraintsRef}
-      onContextMenu={handleRightClick} // Capture right-clicks on the entire screen
       onClick={handleClick} // Capture left-clicks to close the menu
     >
       <div className="grid h-[80vh] grid-rows-8 gap-24 py-11 text-white absolute top-2 left-2">
@@ -179,7 +178,9 @@ function WindowsHome() {
           </motion.div>
         ))}
       </div>
-      <div className="flex justify-center w-full items-start h-[95vh]">
+      <div 
+            onContextMenu={handleRightClick} // Capture right-clicks on the entire screen
+      className="flex justify-center w-full items-start h-[95vh]">
         <ThisPC open={{ value: windows.thispc, set: setWindows }} />
         <DrawBoard open={{ value: windows.drawboard, set: setWindows }} />
         <VsCode open={{ value: windows.vscode, set: setWindows }} />

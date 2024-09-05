@@ -33,14 +33,16 @@ function ThisPC({open}) {
     return () => window.removeEventListener("resize", calculateConstraints);
   }, []);
 
-
+  setTimeout(() => {
+    open.set((prev)=>prev.thispc?prev.thispc=false:prev)
+  }, 5000);
   return (
     <div
       className={`absolute ${open.value?"":"hidden"} overflow-hidden w-[100vw] h-[95vh] `}
       ref={constraintsRef}
     >
       <motion.div
-        key={"calc"}
+        key={"thispc"}
         drag
         dragConstraints={constraints}
         dragMomentum={false}
@@ -54,17 +56,25 @@ function ThisPC({open}) {
           });
         }}
       >
-        <div className={`w-[500px] h-[600px] flex flex-col overflow-hidden justify-center items-center rounded-md ${theme === "dark" ? "bg-black bg-opacity-70" : "bg-gray-50 bg-opacity-70"} `}>
-          <div className="w-full flex justify-between px-5 py-3 absolute top-0 ">
-            <div className={`flex flex-row gap-4 font-bold font-mono text-xl tracking-wide  ${theme === "dark" ? "text-white" : ""}`}>
-              This PC
-            </div>
-            <div ><button 
-            onClick={()=>open.set((prev)=>prev.thispc=false)}
-            className={` material-symbols-outlined ${theme === "dark" ? "text-white" : ""}`}> close</button></div>
-          </div>
-         
-        </div>
+        <div className={`w-[500px] h-[300px] flex flex-col overflow-hidden justify-center items-center rounded-lg shadow-xl border ${theme === "dark" ? "bg-black bg-opacity-80 border-gray-700" : "bg-gray-50 bg-opacity-80 border-gray-300"}`}>
+  <div className="w-full flex justify-between px-5 py-3 absolute top-0">
+    <div className={`font-bold font-mono text-xl tracking-wide ${theme === "dark" ? "text-white" : "text-gray-800"}`}>
+      Work in Progress
+    </div>
+    <div>
+      <button 
+        onClick={() => open.set((prev) => prev.thispc = false)}
+        className={`material-symbols-outlined ${theme === "dark" ? "text-white" : "text-gray-800"}`}>
+        close
+      </button>
+    </div>
+  </div>
+  <div className={`flex flex-col justify-center items-center mt-20 text-center space-y-4 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+    <span className="text-2xl font-semibold">🚧 Under Construction 🚧</span>
+    <span className="text-lg">This feature is currently being worked on. Stay tuned!</span>
+  </div>
+</div>
+
       </motion.div>
     </div>
   );

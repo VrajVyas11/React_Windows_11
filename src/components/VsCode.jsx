@@ -11,7 +11,12 @@ function VsCode({ open }) {
   });
 
   const constraintsRef = useRef(null);
-  const [constraints, setConstraints] = useState({ left: 0, top: 0, right: 0, bottom: 0 });
+  const [constraints, setConstraints] = useState({
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+  });
 
   useEffect(() => {
     const updateConstraints = () => {
@@ -52,7 +57,7 @@ function VsCode({ open }) {
         }}
       >
         <div className="w-[1000px] h-[700px] flex flex-col rounded-md overflow-hidden justify-between bg-[#212121]">
-        <div className="absolute top-0 w-full flex justify-between  items-center flex-row ">
+          <div className="absolute top-0 w-full flex justify-between items-center flex-row ">
             <div className="flex flex-row text-lg gap-4 justify-center items-center font-mono ml-4 tracking-wide text-white">
               <img
                 width={20}
@@ -64,7 +69,7 @@ function VsCode({ open }) {
             </div>
             <div className="text-white h-9 w-fit flex justify-end select-none">
               <div
-                className="material-symbols-outlined hover:bg-neutral-700 h-10  w-11 flex justify-center items-start text-xl"
+                className="material-symbols-outlined hover:bg-neutral-700 h-10 w-11 flex justify-center items-start text-xl"
                 onClick={() => open.set((prev) => ({ ...prev, vscode: false }))}
               >
                 minimize
@@ -81,10 +86,20 @@ function VsCode({ open }) {
             </div>
           </div>
           <div className="flex-grow mt-10">
-          <iframe
+            <iframe
               src="https://github1s.com/VrajVyas11/React_Windows_11/blob/main/src/Landing/WindowsHome.jsx"
               title="VsCode"
-              className="h-full w-full "
+              className="h-full w-full"
+              onLoad={(event) => {
+                if (event.target.contentWindow) {
+                  console.log("Iframe loaded successfully");
+                } else {
+                  console.error("Failed to load iframe content");
+                }
+              }}
+              onError={(error) => {
+                console.error("Iframe failed to load:", error);
+              }}
             ></iframe>
           </div>
         </div>

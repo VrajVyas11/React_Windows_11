@@ -108,7 +108,7 @@ export default function Terminal({ open }) {
                             <img
                                 width={20}
                                 height={10}
-                                src="https://laaouatni.github.io/w11CSS/images/vs-code.ico"
+                                src="/apps/terminal.png"
                                 alt="terminal"
                             />
                             Terminal
