@@ -4,12 +4,3 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-body {
-  background: url("./windowsBG.jpg") no-repeat  center center fixed;
-  background-size: cover;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-}
