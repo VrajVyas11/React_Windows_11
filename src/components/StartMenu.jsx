@@ -137,11 +137,11 @@ function StartMenu({
 
   return (
     <section
-      className={`z-50 text-white left-1/3 right-1/3 grid transition-all duration-200 w-[40em] rounded-xl absolute overflow-hidden border-2 border-neutral-600 bg-neutral-800 ${
+      className={`z-50 text-white left-1/3 right-1/3 grid transition-all duration-200 w-[38em] rounded-xl absolute overflow-hidden border-2 border-neutral-600 bg-neutral-800 ${
         isStartOpen ? "bottom-16" : "bottom-[-800px]"
       }`}
     >
-      <div className="p-4">
+      <div className="p-3">
         <input
           type="text"
           id="cerca-input-start"
@@ -149,11 +149,11 @@ function StartMenu({
           disabled={!isStartOpen}
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-          className="w-full h-10 bg-neutral-900 text-white rounded-full px-4 placeholder-gray-500"
+          className="w-full h-9 bg-neutral-900 text-white rounded-full px-4 placeholder-gray-500"
         />
       </div>
       <div>
-        <div className="pt-0 px-8 pb-4">
+        <div className="pt-0 px-7 pb-3">
           <div className="font-bold text-lg flex justify-between items-center border-b border-neutral-600 pb-2">
             <span>Pinned</span>
             <div className="flex items-center gap-2">
@@ -170,13 +170,13 @@ function StartMenu({
               </svg>
             </div>
           </div>
-          <div className="grid grid-cols-6 gap-2 px-2 py-4">
+          <div className="grid grid-cols-6 gap-2 px-2 pt-4">
             {filteredApps.map((icon, index) => (
               <div
                 key={index}
                 className="flex flex-col items-center justify-center gap-1 cursor-pointer hover:bg-gray-700 rounded-md transition duration-100"
               >
-                <img src={icon.src} alt={icon.alt} className="w-10 h-10" />
+                <img src={icon.src} alt={icon.alt} className="w-8 h-8" />
                 <span className="text-xs text-white text-center">
                   {icon.name}
                 </span>
@@ -187,7 +187,7 @@ function StartMenu({
 
         {!searchText && (
           <div className="pt-0 px-8 pb-4">
-            <div className="font-bold text-lg flex justify-between items-center border-b border-neutral-600 pb-2">
+            <div className="font-bold text-base flex justify-between items-center border-b border-neutral-600 pb-2">
               <span>Recommended</span>
               <div className="flex items-center gap-2">
                 <span>More</span>
@@ -228,7 +228,7 @@ function StartMenu({
                   key={index}
                   className="flex items-center gap-4 p-2 rounded-md cursor-pointer hover:bg-gray-700 transition duration-300"
                 >
-                  <img src={recent.src} alt={recent.alt} className="w-9 h-9" />
+                  <img src={recent.src} alt={recent.alt} className="w-7 h-7" />
                   <div className="text-white">
                     <div className="text-sm">{recent.title}</div>
                     <div className="text-xs opacity-70">{recent.subtitle}</div>

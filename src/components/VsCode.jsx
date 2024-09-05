@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useRef, useEffect } from "react";
+import { motion, useDragControls } from "framer-motion";
 
 function VsCode({ open }) {
   const initialX = window.innerWidth / 2.5;
@@ -10,18 +10,16 @@ function VsCode({ open }) {
     y: initialY,
   });
 
+  const [iframePointerEvents, setIframePointerEvents] = useState("auto"); // Controls iframe pointer events
+
   const constraintsRef = useRef(null);
-  const [constraints, setConstraints] = useState({
-    left: 0,
-    top: 0,
-    right: 0,
-    bottom: 0,
-  });
+  const dragControls = useDragControls();
+  const [constraints, setConstraints] = useState({ left: 0, top: 0, right: 0, bottom: 0 });
 
   useEffect(() => {
-    const updateConstraints = () => {
-      const elementWidth = 1000;
-      const elementHeight = 700;
+    const calculateConstraints = () => {
+      const elementWidth = 800; // Adjust the width to match the window size
+      const elementHeight = 500; // Adjust the height to match the window size
       setConstraints({
         left: 0,
         top: 0,
@@ -30,21 +28,33 @@ function VsCode({ open }) {
       });
     };
 
-    updateConstraints();
-    window.addEventListener("resize", updateConstraints);
+    calculateConstraints();
+    window.addEventListener("resize", calculateConstraints);
 
-    return () => window.removeEventListener("resize", updateConstraints);
+    return () => window.removeEventListener("resize", calculateConstraints);
   }, []);
+
+  const startDrag = (event) => {
+    setIframePointerEvents("none"); // Disable iframe pointer events when drag starts
+    dragControls.start(event);
+  };
+
+  const stopDrag = () => {
+    setIframePointerEvents("auto"); // Re-enable iframe pointer events when drag stops
+  };
 
   return (
     <div
       className={`absolute ${open.value ? "" : "hidden"} overflow-hidden w-[100vw] h-[95vh]`}
       ref={constraintsRef}
+      onDoubleClick={(e) => e.preventDefault()} // Prevent default double-click behavior
     >
       <motion.div
         key={"vscode"}
         drag
-        dragConstraints={constraintsRef}
+        dragControls={dragControls}
+        dragListener={false} // Disable default drag listener
+        dragConstraints={constraints}
         dragMomentum={false}
         className="absolute"
         initial={{ x: initialX, y: initialY }}
@@ -54,16 +64,21 @@ function VsCode({ open }) {
             x: Math.max(constraints.left, Math.min(iconPositions.x + info.offset.x, constraints.right)),
             y: Math.max(constraints.top, Math.min(iconPositions.y + info.offset.y, constraints.bottom)),
           });
+          stopDrag(); // Re-enable iframe pointer events after dragging
         }}
       >
-        <div className="w-[1000px] h-[700px] flex flex-col rounded-md overflow-hidden justify-between bg-[#212121]">
-          <div className="absolute top-0 w-full flex justify-between items-center flex-row ">
+        <div className="w-[800px] h-[500px] absolute flex flex-col justify-between rounded-md bg-[#212121] select-none">
+          <div
+            className="w-full flex justify-between z-50 h-10"
+            onPointerDown={startDrag} // Trigger drag on pointer down
+            onDoubleClick={(e) => e.preventDefault()} // Prevent default double-click behavior
+          >
             <div className="flex flex-row text-lg gap-4 justify-center items-center font-mono ml-4 tracking-wide text-white">
               <img
                 width={20}
                 height={10}
                 src="https://laaouatni.github.io/w11CSS/images/vs-code.ico"
-                alt="VsCode"
+                alt="vscode"
               />
               Visual Studio Code
             </div>
@@ -85,11 +100,12 @@ function VsCode({ open }) {
               </div>
             </div>
           </div>
-          <div className="flex-grow mt-10">
+          <div className="flex-grow relative overflow-hidden w-full">
             <iframe
               src="https://github1s.com/VrajVyas11/React_Windows_11/blob/main/src/Landing/WindowsHome.jsx"
               title="VsCode"
-              className="h-full w-full"
+              className="w-full h-full" // Use w-full and h-full to cover entire container
+              style={{ pointerEvents: iframePointerEvents }} // Apply dynamic pointer events
               onLoad={(event) => {
                 if (event.target.contentWindow) {
                   console.log("Iframe loaded successfully");

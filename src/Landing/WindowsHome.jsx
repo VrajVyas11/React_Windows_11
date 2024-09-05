@@ -10,7 +10,7 @@ import RecycleBin from "../components/RecycleBin";
 import ThisPC from "../components/ThisPC";
 import DrawBoard from "../components/DrawBoard";
 import Folder from "../components/Folder";
-import RightClick from "../components/RightClick"; // Import the new component
+import RightClick from "../components/RightClick";
 import Terminal from "../components/Terminal";
 import MSEdge from "../components/MSEdge";
 import ExitScreens from "../components/ExitScreens";
@@ -21,63 +21,63 @@ const AllDesktopHomeIcons = [
     name: "This PC",
     icon: "./apps/Computer.ico",
     action: "thispc",
-    size: "w-18 h-18",
+    size: "w-7 h-7", // Adjusted size (80% of w-9 h-9)
   },
   {
     id: 2,
     name: "Folder",
     icon: "./apps/folder.png",
     action: "folder",
-    size: "w-8 h-8",
+    size: "w-5 h-5", // Adjusted size (80% of w-6 h-6)
   },
   {
     id: 3,
     name: "Google Chrome",
     icon: "./apps/chrome.png",
     action: "browser",
-    size: "w-10 h-10",
+    size: "w-6 h-6", // Adjusted size (80% of w-7 h-7)
   },
   {
     id: 4,
     name: "RecycleBin",
     icon: "./apps/recyclebin.png",
     action: "recycle",
-    size: "w-14 h-14",
+    size: "w-8 h-8", // Adjusted size (80% of w-10 h-10)
   },
   {
     id: 5,
     name: "Microsoft Edge",
     icon: "./apps/edge.png",
     action: "msedge",
-    size: "w-10 h-10",
+    size: "w-6 h-6", // Adjusted size (80% of w-8 h-8)
   },
   {
     id: 6,
     name: "Calculator",
     icon: "./apps/calculator.png",
     action: "calculator",
-    size: "w-11 h-11",
+    size: "w-7 h-7", // Adjusted size (80% of w-9 h-9)
   },
   {
     id: 7,
     name: "DrawBoard",
     icon: "./apps/Drawboard.png",
     action: "drawboard",
-    size: "w-11 h-11",
+    size: "w-7 h-7", // Adjusted size (80% of w-9 h-9)
   },
   {
     id: 8,
     name: "VS Code",
     icon: "https://laaouatni.github.io/w11CSS/images/vs-code.ico",
     action: "vscode",
-    size: "w-8 h-8",
+    size: "w-5 h-5", // Adjusted size (80% of w-6 h-6)
   },
 ];
 
 function WindowsHome() {
   const constraintsRef = useRef(null);
-  const [isSleeping, setIsSleeping] = useState(false)
-  const [actionType, setActionType] = useState("")
+  const [isSleeping, setIsSleeping] = useState(false);
+  const [actionType, setActionType] = useState("");
   const [windows, setWindows] = useState({
     start: false,
     thispc: false,
@@ -108,7 +108,7 @@ function WindowsHome() {
     AllDesktopHomeIcons.map((icon, index) => ({
       ...icon,
       x: 0,
-      y: index, // Adjust the starting positions
+      y: index * 1.6, // Adjusted positions (80% of 2)
     }))
   );
 
@@ -117,8 +117,8 @@ function WindowsHome() {
     const newPositions = [...iconPositions];
     newPositions[index] = {
       ...newPositions[index],
-      x: (newPositions[index].x || 0) + offset.x,
-      y: (newPositions[index].y || 0) + offset.y,
+      x: (newPositions[index].x || 0) + offset.x * 0.8, // Adjusted scaling
+      y: (newPositions[index].y || 0) + offset.y * 0.8, // Adjusted scaling
     };
 
     setIconPositions(newPositions);
@@ -128,14 +128,14 @@ function WindowsHome() {
   const [isRightClickVisible, setRightClickVisible] = useState(false);
 
   const handleRightClick = (event) => {
-    event.preventDefault(); // Prevent the default context menu from appearing
-    setRightClickPosition({ x: event.clientX, y: event.clientY });
+    event.preventDefault();
+    setRightClickPosition({ x: event.clientX * 0.8, y: event.clientY * 0.8 }); // Adjusted position
     setRightClickVisible(true);
   };
 
   const handleClick = () => {
     if (isRightClickVisible) {
-      setRightClickVisible(false); // Close the right-click menu on any left click
+      setRightClickVisible(false);
     }
   };
 
@@ -143,9 +143,9 @@ function WindowsHome() {
     <div
       className="relative h-screen"
       ref={constraintsRef}
-      onClick={handleClick} // Capture left-clicks to close the menu
+      onClick={handleClick}
     >
-      <div className="grid h-[80vh] grid-rows-8 gap-24 py-11 text-white absolute top-2 left-2">
+      <div className="grid h-[64vh] grid-rows-8 gap-16 py-8 text-white absolute top-2 left-2">
         {iconPositions.map((app, index) => (
           <motion.div
             key={app.id}
@@ -159,7 +159,7 @@ function WindowsHome() {
             }}
           >
             <div
-              className="w-[5em] h-[5em] flex flex-col justify-center items-center rounded-md hover:bg-white hover:bg-opacity-20 px-2 py-3"
+              className="w-[4em] h-[4em] flex flex-col justify-center items-center rounded-md hover:bg-white hover:bg-opacity-20 px-1.6 py-2.4"
               onDoubleClick={() => toggleWindow(app.action, app.url)}
             >
               <img
@@ -169,8 +169,7 @@ function WindowsHome() {
                 onDragStart={(e) => e.preventDefault()}
               />
               <div
-                className={`text-balance text-center text-sm select-none ${app.name === "Recycle Bin" ? "pt-0" : "pt-2"
-                  }`}
+                className={`text-balance text-center text-xs select-none ${app.name === "Recycle Bin" ? "pt-0" : "pt-1.6"}`}
               >
                 {app.name}
               </div>
@@ -179,8 +178,9 @@ function WindowsHome() {
         ))}
       </div>
       <div 
-            onContextMenu={handleRightClick} // Capture right-clicks on the entire screen
-      className="flex justify-center w-full items-start h-[95vh]">
+        onContextMenu={handleRightClick}
+        className="flex justify-center w-full items-start h-[76vh]"
+      >
         <ThisPC open={{ value: windows.thispc, set: setWindows }} />
         <DrawBoard open={{ value: windows.drawboard, set: setWindows }} />
         <VsCode open={{ value: windows.vscode, set: setWindows }} />
@@ -195,22 +195,20 @@ function WindowsHome() {
           open={{ value: windows, set: setWindows }}
         />
         <Terminal open={{ value: windows, set: setWindows }} />
-        <ExitScreens isSleeping={isSleeping} actionType={actionType}/>
+        <ExitScreens isSleeping={isSleeping} actionType={actionType} />
       </div>
       <Footer
         toggleStart={() => toggleWindow("start")}
         toggleExplorer={(input) => toggleWindow("explorer", input)}
         toggleEdge={() => toggleWindow("msedge")}
       />
-      <div></div>
       <StartMenu
         toggleStart={() => toggleWindow("start")}
         isStartOpen={windows.start}
         setInput={(input) => setBrowserUrl(input)}
-        setIsSleeping={(val)=>setIsSleeping(val)}
-        setActionType={(val)=>setActionType(val)}
+        setIsSleeping={(val) => setIsSleeping(val)}
+        setActionType={(val) => setActionType(val)}
       />
-
     </div>
   );
 }
